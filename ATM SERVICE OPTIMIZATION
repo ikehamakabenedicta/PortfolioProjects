@@ -1,0 +1,555 @@
+ ATM SERVICE OPTIMIZATION
+
+PROJECT SCRIPT  FOR SQL
+
+--------Creating views for all States-------
+CREATE VIEW CombinedTransactionDataView AS
+SELECT
+    [TransactionID],
+    [TransactionStartDateTime],
+    [TransactionEndDateTime],
+    [CardholderID],
+    [LocationID],
+    [TransactionTypeID],
+    [TransactionAmount],
+    [ATM_ID],
+    [wait_time],
+    [wait_time2],
+    [fumedate],
+    'Enugu' AS State
+FROM dbo.[Enugu State]
+
+UNION 
+
+SELECT
+    [TransactionID],
+    [TransactionStartDateTime],
+    [TransactionEndDateTime],
+    [CardholderID],
+    [LocationID],
+    [TransactionTypeID],
+    [TransactionAmount],
+    [ATMID],
+    [wait_time],
+    [wait_time2],
+    [fumedate],
+    'FCT' AS State
+FROM dbo.[Fct s]
+
+UNION 
+
+SELECT
+    [TransactionID],
+    [TransactionStartDateTime],
+    [TransactionEndDateTime],
+    [CardholderID],
+    [LocationID],
+    [TransactionTypeID],
+    [TransactionAmount],
+    [ATMID],
+    [wait_time],
+    [wait_time2],
+    [fumedate],
+    'Kano' AS State
+FROM dbo.[Kano State]
+
+UNION 
+
+SELECT
+    [TransactionID],
+    [TransactionStartDateTime],
+    [TransactionEndDateTime],
+    [CardholderID],
+    [LocationID],
+    [TransactionTypeID],
+    [TransactionAmount],
+    [ATMID],
+    [wait_time],
+    [wait_time2],
+    [fumedate],
+    'Lagos' AS State
+FROM dbo.[Lagos State]
+
+UNION 
+
+SELECT
+    [TransactionID],
+    [TransactionStartDateTime],
+    [TransactionEndDateTime],
+    [CardholderID],
+    [LocationID],
+    [TransactionTypeID],
+    [TransactionAmount],
+    [ATMID],
+    [wait_time],
+    [wait_time2],
+    [fumedate],
+    'Rivers' AS State
+FROM dbo.[Rivers State n];
+
+
+SELECT TOP (1000) [TransactionID]
+      ,[TransactionStartDateTime]
+      ,[TransactionEndDateTime]
+      ,[CardholderID]
+      ,[LocationID]
+      ,[TransactionTypeID]
+      ,[TransactionAmount]
+      ,[ATM_ID]
+      ,[wait_time]
+      ,[wait_time2]
+      ,[fumedate]
+      ,[State]
+  FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[CombinedTransactionDataView]
+-------------------------------------------------------------------------------------------------------------------
+
+----------Create a Calendar Dimension Table-----------
+
+CREATE TABLE Calendar_Dimension_Table (
+    DateKey INT PRIMARY KEY,
+    FullDate DATE,
+    Day INT,
+    Month INT,
+    Year INT,
+    Quarter INT,
+    Weekday INT
+);
+
+DECLARE @StartDate DATE = '2022-01-01';
+DECLARE @EndDate DATE = '2022-12-31';
+
+WITH DateCTE AS (
+    SELECT @StartDate AS Date
+    UNION ALL
+    SELECT DATEADD(DAY, 1, Date)
+    FROM dbo.[calendar lookup]
+    WHERE Date < @EndDate
+)
+
+INSERT INTO Calendar_Dimension_Table (DateKey, FullDate, Day, Month, Year, Quarter, Weekday)
+SELECT
+    CONVERT(INT, CONVERT(VARCHAR, Date, 112)) AS DateKey,
+    Date,
+    DAY(Date) AS Day,
+    MONTH(Date) AS Month,
+    YEAR(Date) AS Year,
+    DATEPART(QUARTER, Date) AS Quarter,
+    DATEPART(WEEKDAY, Date) AS Weekday
+FROM dbo.[calendar lookup]
+OPTION (MAXRECURSION 0);
+
+
+
+----------Create a Calendar Dimension Table-----------
+
+CREATE TABLE Calendar (
+SELECT TOP (1001) [CardholderID]
+      ,[First_Name]
+      ,[Last_Name]
+      ,[Gender]
+      ,[LOCATIONID]
+      ,[Birth_Date]
+      ,[Occupation]
+      ,[AccountType]
+      ,[IsDaKliq_Bank]
+      ,[Profession_Category]
+  FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[customers_lookup_Info]
+
+
+-- Add a new column FullName
+ALTER TABLE [ATM_OPTIMIZATION_STRATEGY].[dbo].[customers_lookup_Info]
+ADD FullName NVARCHAR(255); -- Adjust the data type and length accordingly
+
+-- Update the new column with the concatenated values
+UPDATE [ATM_OPTIMIZATION_STRATEGY].[dbo].[customers_lookup_Info]
+SET FullName = [First_Name] + ' ' + [Last_Name];
+
+
+CREATE TABLE [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Machine_]
+(
+    ATM_ID INT IDENTITY(1,1) PRIMARY KEY,
+    Location_Name VARCHAR(255)
+);
+
+
+INSERT INTO [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Machine_] (Location_Name)
+SELECT Location_Name
+FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[atm_location lookup]
+WHERE Location_Name IS NOT NULL;
+
+INSERT INTO [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Machine_] (Location_Name)
+SELECT Location_Name
+FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[atm_location lookup]
+WHERE Location_Name IS NOT NULL;
+
+
+SELECT * FROM Calendar
+-------------------------------------------------------------------------------------------------------------------
+
+---------------Data Transformation Using SQL
+
+SELECT TOP (1001) [CardholderID]
+      ,[First_Name]
+      ,[Last_Name]
+      ,[Gender]
+      ,[LOCATIONID]
+      ,[Birth_Date]
+      ,[Occupation]
+      ,[AccountType]
+      ,[IsDaKliq_Bank]
+      ,[Profession_Category]
+  FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[customers_lookup_Info]
+
+
+-- Add a new column FullName
+
+ALTER TABLE [ATM_OPTIMIZATION_STRATEGY].[dbo].[customers_lookup_Info]
+ADD FullName NVARCHAR(255); -- Adjust the data type and length accordingly
+
+-- Update the new column with the concatenated values
+
+UPDATE [ATM_OPTIMIZATION_STRATEGY].[dbo].[customers_lookup_Info]
+SET FullName = [First_Name] + ' ' + [Last_Name];
+
+--------Creating a new table called ATM_Machine to link ATM_Maintenence table to ALL Combined Table
+
+CREATE TABLE [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Machine_]
+(
+    ATM_ID INT IDENTITY(1,1) PRIMARY KEY,
+    Location_Name VARCHAR(255)
+);
+
+
+INSERT INTO [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Machine_] (Location_Name)
+SELECT Location_Name
+FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[atm_location lookup]
+WHERE Location_Name IS NOT NULL;
+
+INSERT INTO [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Machine_] (Location_Name)
+SELECT Location_Name
+FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[atm_location lookup]
+WHERE Location_Name IS NOT NULL;
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+-- Create a new table by joining calender dimension table and calender lookup table and calling the new table Calender
+
+SELECT DISTINCT
+    cd.[DateKey],
+    cd.[FullDate],
+    cd.[Day],
+    cd.[Month] AS CalendarMonth,
+    cd.[Year],
+    cd.[Quarter],
+    cd.[Weekday],
+    cl.[Year] AS LookupYear,
+    cl.[Month_Name],
+    cl.[Month] AS LookupMonth,
+    cl.[Quarter],
+    cl.[Week_of_Year],
+    cl.[End_of_Week],
+    cl.[Day_of_Week],
+    cl.[Day_Name],
+    cl.[IsHoliday]
+INTO [ATM_OPTIMIZATION_STRATEGY].[dbo].[Calendar_New]
+FROM
+    [ATM_OPTIMIZATION_STRATEGY].[dbo].[Calendar_Dimension_Table] AS cd
+JOIN
+    [ATM_OPTIMIZATION_STRATEGY].[dbo].[calendar_lookup] AS cl
+ON
+    cd.[DateKey] = TRY_CAST(cl.[Date] AS INT) 
+    OR cd.[FullDate] = TRY_CAST(cl.[Date] AS DATE);
+
+-- Drop the old Calendar table
+DROP TABLE [ATM_OPTIMIZATION_STRATEGY].[dbo].[Calendar];
+
+-- Rename the new table to Calendar
+EXEC sp_rename '[ATM_OPTIMIZATION_STRATEGY].[dbo].[Calendar_New]', 'Calendar';
+
+-- Drop the specified columns from the Calendar table
+
+ALTER TABLE [ATM_OPTIMIZATION_STRATEGY].[dbo].[Calendar]
+DROP COLUMN DateKey,
+            Months,
+            Quarter;
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+--------What are the peak hours/days of ATM usage?
+
+WITH RankedTransactions AS (
+    SELECT
+        DATENAME(WEEKDAY, TransactionStartDateTime) AS DayOfWeek,
+        DATEPART(HOUR, TransactionStartDateTime) AS HourOfDay,
+        COUNT(*) AS TransactionCount,
+        ROW_NUMBER() OVER (PARTITION BY DATENAME(WEEKDAY, TransactionStartDateTime) ORDER BY COUNT(*) DESC) AS Rank
+    FROM
+        [dbo].[CombinedTransactionDataView]
+    GROUP BY
+        DATENAME(WEEKDAY, TransactionStartDateTime),
+        DATEPART(HOUR, TransactionStartDateTime)
+)
+
+SELECT
+    DayOfWeek,
+    HourOfDay,
+    TransactionCount
+FROM
+    RankedTransactions
+WHERE
+    Rank = 1;
+
+-------------------------------------------------------------------------------------------------------------------
+
+--------Which locations experience the highest ATM traffic?----------
+
+SELECT
+    State,
+    COUNT(*) AS TransactionCount
+FROM
+   [dbo].[CombinedTransactionDataView]
+GROUP BY
+    State
+ORDER BY
+    COUNT(*) DESC;
+
+-------------------------------------------------------------------------------------------------------------------
+
+----------Are there any seasonal trends in ATM usage?
+
+	SELECT
+    DATEPART(MONTH, TransactionStartDateTime) AS MonthOfYear,
+    COUNT(*) AS TransactionCount
+FROM
+    dbo.CombinedTransactionDataView
+GROUP BY
+    DATEPART(MONTH, TransactionStartDateTime)
+ORDER BY
+    MonthOfYear;
+
+-------------------------------------------------------------------------------------------------------------------
+
+------How often do ATMs experience downtime?---
+
+SELECT
+    COUNT(*) AS DowntimeCount
+FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Maintenance_Schedule_Lookup]
+WHERE
+   ATM_Uptime_Downtime IS NOT NULL;
+
+ -------------------------------------------------------------------------------------------------------------------
+
+ ------What are the main causes of ATM downtime?---
+
+ SELECT
+    ATM_Uptime_Downtime,
+    COUNT(*) AS DowntimeCount
+FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Maintenance_Schedule_Lookup]
+WHERE
+    ATM_Uptime_Downtime IS NOT NULL
+GROUP BY
+    ATM_Uptime_Downtime
+ORDER BY
+    DowntimeCount DESC;
+
+-------------------------------------------------------------------------------------------------------------------
+
+------Is there a correlation between ATM downtime and customer retention?---
+
+WITH DowntimeAndRetention AS (
+    SELECT
+        C.ATM_ID
+        COUNT(DISTINCT CASE WHEN A.ATM_Uptime_Downtime IS NOT NULL THEN A.Maintenance_Timestamp END) AS DowntimeCount,
+        MAX(CAST(R.Transaction_Success_Rate AS INT)) AS RetentionStatus
+
+        FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Maintenance_Schedule_Lookup] A
+    JOIN
+         FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[CombinedTransactionDataView] C ON A.ATM_ID = C.ATM_ID
+    LEFT JOIN
+        FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[customers_lookup_Info] R ON C.CardholderID = R.CardholderID
+    GROUP BY
+        C.CustomerID
+)
+
+SELECT
+    CORR(DowntimeCount, CAST(RetentionStatus AS FLOAT)) AS Correlation
+FROM
+    DowntimeAndRetention;
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+ ---------What is the success rate of ATM transactions?------------------------------
+
+ SELECT
+    COUNT(CASE WHEN ATM_Uptime_Downtime = 'Operational' THEN 1 END) AS SuccessfulTransactions,
+    COUNT(*) AS TotalTransactions,
+    CAST(SUM(CASE WHEN ATM_Uptime_Downtime = 'Operational' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(*) AS SuccessRate
+ FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Maintenance_Schedule_Lookup]
+
+ --------------------------------------------------------------------------------------------------------------------------
+
+ --------Are certain ATM locations experiencing higher transaction failure rates?--------
+
+ SELECT
+    ATM_ID,
+    COUNT(CASE WHEN ATM_Uptime_Downtime = 'Out of Service' THEN 1 END) AS FailedTransactions,
+    COUNT(*) AS TotalTransactions,
+    CAST(SUM(CASE WHEN ATM_Uptime_Downtime = 'Out of Service' THEN 1 ELSE 0 END) AS FLOAT) / COUNT(*) AS FailureRate
+FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[ATM_Maintenance_Schedule_Lookup]
+GROUP BY
+    ATM_ID
+ORDER BY
+    FailureRate DESC;
+
+
+ --------------------------------------------------------------------------------------------------------------------------
+
+CUSTOMER WAIT TIME
+
+
+SELECT *
+  FROM [ATM_OPTIMIZATION_STRATEGY].[dbo].[Enugu State]
+
+   ----------CUSTOMER WAIT
+
+ -- Add a varchar column 'wait_time'
+ALTER TABLE [ATM_OPTIMIZATION_STRATEGY].[dbo].[Enugu State]
+ADD wait_time VARCHAR(50);
+
+-- Update 'wait_time' based on the difference in minutes between 'startdatetime' and 'enddatetime'
+
+
+UPDATE [ATM_OPTIMIZATION_STRATEGY].[dbo].[Enugu State]
+SET wait_time = DATEDIFF(MINUTE, TransactionStartDateTime, TransactionEndDateTime);
+
+
+
+-- Convert 'wait_time' to BIGINT datatype
+ALTER TABLE  [ATM_OPTIMIZATION_STRATEGY].[dbo].[Enugu State]
+ADD wait_time2 BIGINT;
+
+
+UPDATE [ATM_OPTIMIZATION_STRATEGY].[dbo].[Enugu State]
+SET wait_time2 = TRY_CAST(wait_time AS BIGINT);
+
+-- Add a new date column 'fumedate'
+ALTER TABLE  [ATM_OPTIMIZATION_STRATEGY].[dbo].[Enugu State]
+ADD fumedate DATE;
+
+-- Update 'fumedate' based on the date part of 'transactionstartdatetime'
+
+UPDATE [ATM_OPTIMIZATION_STRATEGY].[dbo].[Enugu State]
+SET fumedate = CAST(transactionstartdatetime AS DATE);
+
+POWER BI DAX MEASURE
+
+Balance_Inquiry_Transactions = 
+CALCULATE(
+    COUNTROWS('CombinedTransactionDataView'),
+    'transaction_type lookup'[TransactionTypeName] = "Balance Inquiry"
+)
+
+
+Deposit_Transactions = 
+CALCULATE(
+    COUNTROWS('CombinedTransactionDataView'),
+    'transaction_type lookup'[TransactionTypeName] = "Deposit"
+)
+
+
+Number_of_Cities = 
+CALCULATE(
+    COUNTROWS(
+        VALUES('atm_location lookup'[City])
+    ),
+    'atm_location lookup'[City] <> BLANK()
+)
+
+Number_of_States = 
+CALCULATE(
+    COUNTROWS(
+        VALUES('atm_location lookup'[State])
+    ),
+    'atm_location lookup'[State] <> BLANK()
+)
+
+NumberOfLocations = COUNTROWS('atm_location lookup')
+
+
+NumberOfMaintenanceRecords = COUNTROWS(ATM_Maintenance_Schedule_Lookup)
+
+
+Total_ATMs = SUM('atm_location lookup'[No_of_ATMs]
+)
+
+Error_Rate = 
+FORMAT(
+    DIVIDE(
+        COUNTROWS(
+            FILTER(
+                'ATM_Maintenance_Schedule_Lookup',
+                IF('ATM_Maintenance_Schedule_Lookup'[Error_Rate] = "N/A", 0, VALUE('ATM_Maintenance_Schedule_Lookup'[Error_Rate])) = 1
+            )
+        ),
+        COUNTROWS('ATM_Maintenance_Schedule_Lookup'),
+        0
+    ),
+    "0%"
+)
+
+Error_Rate = 
+FORMAT(
+    DIVIDE(
+        COUNTROWS(
+            FILTER(
+                'ATM_Maintenance_Schedule_Lookup',
+                IF('ATM_Maintenance_Schedule_Lookup'[Error_Rate] = "N/A", 0, VALUE('ATM_Maintenance_Schedule_Lookup'[Error_Rate])) = 1
+            )
+        ),
+        COUNTROWS('ATM_Maintenance_Schedule_Lookup'),
+        0
+    ),
+    "0%"
+)
+
+
+TotalAmount = SUM(CombinedTransactionDataView[TransactionAmount])
+
+TotalCustomers = COUNTROWS(customers_lookup_Info)
+
+TotalCustomers = COUNTROWS(customers_lookup_Info)
+
+Transactions = 
+COUNTROWS(CombinedTransactionDataView)
+
+
+Transfer_Transactions = 
+CALCULATE(
+    COUNTROWS('CombinedTransactionDataView'),
+    'transaction_type lookup'[TransactionTypeName] = "Transfer"
+)
+
+Withdrawal_Transaction = 
+CALCULATE(
+    COUNTROWS('CombinedTransactionDataView'),
+    'transaction_type lookup'[TransactionTypeName] = "Withdrawal"
+)
+Average_Repair_Time_Format = 
+FORMAT(
+    AVERAGEX(
+        VALUES('ATM_Maintenance_Schedule_Lookup'[ATM_ID]),
+        CALCULATE(SUM('ATM_Maintenance_Schedule_Lookup'[Service Response Time])) - TIME(1, 0, 0)
+    ),
+    "h:mm"
+)
+
+Error_Rate = 
+AVERAGE('ATM_Maintenance_Schedule_Lookup'[Error Rates])
+

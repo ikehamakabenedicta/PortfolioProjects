@@ -140,10 +140,9 @@ OPTION (MAXRECURSION 0);
 
 
 
-----------Create a Calendar Dimension Table-----------
+----------Updating Customer Dimension Table-----------
 
-CREATE TABLE Calendar (
-SELECT TOP (1001) [CardholderID]
+SELECT TOP (1000) [CardholderID]
       ,[First_Name]
       ,[Last_Name]
       ,[Gender]
@@ -233,7 +232,7 @@ WHERE Location_Name IS NOT NULL;
 
 -------------------------------------------------------------------------------------------------------------------
 
--- Create a new table by joining calender dimension table and calender lookup table and calling the new table Calender
+-- Create a new table by joining calender dimension table and calender lookup table and calling the new Calender Table
 
 SELECT DISTINCT
     cd.[DateKey],
@@ -448,7 +447,10 @@ ADD fumedate DATE;
 UPDATE [ATM_OPTIMIZATION_STRATEGY].[dbo].[Enugu State]
 SET fumedate = CAST(transactionstartdatetime AS DATE);
 
-POWER BI DAX MEASURE
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------POWER BI DAX MEASURE---------------
+
 
 Balance_Inquiry_Transactions = 
 CALCULATE(

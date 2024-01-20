@@ -1,0 +1,812 @@
+TUBERCULOSIS SQL SCRIPT
+6.
+SELECT *
+  FROM [dbo].[6- tuberculosis-deaths-under-five-ihme]
+
+
+USE [TUBERCULOSIS_REPORT];
+
+-- Assuming you want to rename the column in a table named '6- tuberculosis-deaths-under-five-ihme'
+EXEC sp_rename '6- tuberculosis-deaths-under-five-ihme.[Entity]', 'Country', 'COLUMN';
+
+USE [TUBERCULOSIS_REPORT];
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'AFR'
+WHERE Country = 'African Region (WHO)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'EAP'
+WHERE Country = 'East Asia & Pacific (WB)';
+
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'EMR'
+WHERE Country = 'Eastern Mediterranean Region (WHO)';
+
+UPDATE [[dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'ENG'
+WHERE Country = 'England';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'ECA'
+WHERE Country = 'Europe & Central Asia (WB)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'ER'
+WHERE Country = 'European Region (WHO)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'G20'
+WHERE Country = 'G20';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'LAC'
+WHERE Country = 'Latin America & Caribbean (WB)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'MNA'
+WHERE Country = 'Middle East & North Africa (WB)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'NOA'
+WHERE Country = 'North America (WB)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'NOI'
+WHERE Country = 'Northern Ireland';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'OEC'
+WHERE Country = 'OECD Countries';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'ROA'
+WHERE Country = 'Region of the Americas (WHO)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'SOD'
+WHERE Country = 'Scotland';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'SAW'
+WHERE Country = 'South Asia (WB)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'SER'
+WHERE Country = 'South-East Asia Region (WHO)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'SSA'
+WHERE Country = 'Sub-Saharan Africa (WB)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'WAL'
+WHERE Country = 'Wales';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'WPR'
+WHERE Country = 'Western Pacific Region (WHO)';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'WBH'
+WHERE Country = 'World Bank High Income';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'WBL'
+WHERE Country = 'World Bank Low Income';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'WBL'
+WHERE Country = 'World Bank Lower Middle Income';
+
+UPDATE [dbo].[6- tuberculosis-deaths-under-five-ihme]
+SET Code = 'WBU'
+WHERE Country = 'World Bank Upper Middle Income';
+------------------------------------------------------------------------------------------------------------------------------------------
+
+5.
+ 
+SELECT *
+  FROM [TUBERCULOSIS_REPORT].[dbo].[5- tuberculosis-patients-with-hiv-share]
+
+
+
+USE [TUBERCULOSIS_REPORT];
+
+EXEC sp_rename '[dbo].[5- tuberculosis-patients-with-hiv-share].[Entity]', 'Country', 'COLUMN';
+ 
+
+USE [TUBERCULOSIS_REPORT];
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'AFR'
+WHERE Country = 'Africa';
+
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'ASI'
+WHERE Country = 'Asia';
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'EUR'
+WHERE Country = 'Europe';
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'HIC'
+WHERE Country = 'High-income countries';
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'LIC'
+WHERE Country = 'Low-income countries';
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'LMIC'
+WHERE Country = 'Lower-middle-income countries';
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'NAM'
+WHERE Country = 'North America';
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'OCE'
+WHERE Country = 'Oceania';
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'SOA'
+WHERE Country = 'South America';
+
+UPDATE [dbo].[5- tuberculosis-patients-with-hiv-share]
+SET Code = 'UMIC'
+WHERE Country = 'Upper-middle-income countries';
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+4. 
+
+SELECT *
+  FROM [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+
+
+USE [TUBERCULOSIS_REPORT];
+
+EXEC sp_rename '[dbo].[4- tuberculosis-treatment-success-rate-by-type].[Entity]', 'Country', 'COLUMN';
+
+USE [TUBERCULOSIS_REPORT];
+
+UPDATE [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET [Indicator_Treatment_Success_rate_for_patients_treated_for_MDR_TB] = 0
+WHERE [Indicator_Treatment_Success_rate_for_patients_treated_for_MDR_TB] IS NULL;
+
+
+UPDATE [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET [Indicator_Treatment_Success_rate_XDR_TB_cases] = 0
+WHERE [Indicator_Treatment_Success_rate_XDR_TB_cases] IS NULL;
+
+UPDATE [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET [Indicator_Treatment_Success_rate_new_TB_cases] = 0
+WHERE [Indicator_Treatment_Success_rate_new_TB_cases] IS NULL;
+
+
+USE [TUBERCULOSIS_REPORT];
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'AFR'
+WHERE Country = 'Africa';
+
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'ASI'
+WHERE Country = 'Asia';
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'EUR'
+WHERE Country = 'Europe';
+
+UPDATE  [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'EMR'
+WHERE Country = 'Eastern Mediterranean';
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'AME'
+WHERE Country = 'Americas';
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'HIC'
+WHERE Country = 'High-income';
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'NAM'
+WHERE Country = 'North America';
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'LIC'
+WHERE Country = 'Low-income';
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'SEA'
+WHERE Country = 'South-east Asia';
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'LMI'
+WHERE Country = 'Lower-middle-income ';
+
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'UMIC'
+WHERE Country = 'Upper-middle-income';
+
+
+UPDATE [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+SET Code = 'WEP'
+WHERE Country = 'Western Pacific';
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+3.
+
+SELECT *
+  FROM [TUBERCULOSIS_REPORT].[dbo].[3- tuberculosis-case-detection-rate]
+
+USE [TUBERCULOSIS_REPORT];
+
+EXEC sp_rename '[dbo].[3- tuberculosis-case-detection-rate].[Entity]', 'Country', 'COLUMN';
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+2.
+
+SELECT *
+  FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age]
+
+USE [TUBERCULOSIS_REPORT];
+
+EXEC sp_rename '[dbo].[2- tuberculosis-deaths-by-age].[Entity]', 'Country', 'COLUMN';
+
+USE [TUBERCULOSIS_REPORT];
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'AFR'
+WHERE Country = 'African Region (WHO)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'EAP'
+WHERE Country = 'East Asia & Pacific (WB)';
+
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'EMR'
+WHERE Country = 'Eastern Mediterranean Region (WHO)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'ENG'
+WHERE Country = 'England';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'ECA'
+WHERE Country = 'Europe & Central Asia (WB)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'ER'
+WHERE Country = 'European Region (WHO)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'G20'
+WHERE Country = 'G20';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'LAC'
+WHERE Country = 'Latin America & Caribbean (WB)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'MNA'
+WHERE Country = 'Middle East & North Africa (WB)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'NOA'
+WHERE Country = 'North America (WB)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'NOI'
+WHERE Country = 'Northern Ireland';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'OEC'
+WHERE Country = 'OECD Countries';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'ROA'
+WHERE Country = 'Region of the Americas (WHO)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'SOD'
+WHERE Country = 'Scotland';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'SAW'
+WHERE Country = 'South Asia (WB)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'SER'
+WHERE Country = 'South-East Asia Region (WHO)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'SSA'
+WHERE Country = 'Sub-Saharan Africa (WB)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'WAL'
+WHERE Country = 'Wales';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'WPR'
+WHERE Country = 'Western Pacific Region (WHO)';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'WBH'
+WHERE Country = 'World Bank High Income';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'WBL'
+WHERE Country = 'World Bank Low Income';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'WBL'
+WHERE Country = 'World Bank Lower Middle Income';
+
+UPDATE [dbo].[2- tuberculosis-deaths-by-age]
+SET Code = 'WBU'
+WHERE Country = 'World Bank Upper Middle Income';
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+1. 
+SELECT *
+  FROM dbo.[1- incidence-of-tuberculosis-sdgs]
+
+USE [TUBERCULOSIS_REPORT];
+
+EXEC sp_rename 'dbo.[1- incidence-of-tuberculosis-sdgs].[Entity]', 'Country', 'COLUMN';
+
+  UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'AFR'
+WHERE Country = 'Africa';
+
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'ASI'
+WHERE Country = 'Asia';
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'EUR'
+WHERE Country = 'Europe';
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'HIC'
+WHERE Country = 'High-income countries';
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'LIC'
+WHERE Country = 'Low-income countries';
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'LMIC'
+WHERE Country = 'Lower-middle-income countries';
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'NAM'
+WHERE Country = 'North America';
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'OCE'
+WHERE Country = 'Oceania';
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'SOA'
+WHERE Country = 'South America';
+
+UPDATE dbo.[1- incidence-of-tuberculosis-sdgs]
+SET Code = 'UMIC'
+WHERE Country = 'Upper-middle-income countries';
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+-----creating a Fact Table-----------------
+
+CREATE TABLE CombinedDataTable (
+    Country NVARCHAR(255),
+    Code NVARCHAR(10),
+    Year INT, 
+);
+
+select * from CombinedDataTable
+
+-----------------------------------------------------------------------------------
+ 
+ ------ Joining the same data on different table-----------------------
+
+INSERT INTO CombinedDataTable (Country, Code, Year)
+SELECT [Country], [Code], [Year]
+FROM [TUBERCULOSIS_REPORT].[dbo].[3- tuberculosis-case-detection-rate]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [TUBERCULOSIS_REPORT].[dbo].[6- tuberculosis-deaths-under-five-ihme]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [TUBERCULOSIS_REPORT].[dbo].[5- tuberculosis-patients-with-hiv-share]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [TUBERCULOSIS_REPORT].dbo.[2- tuberculosis-deaths-by-age]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [TUBERCULOSIS_REPORT].[dbo].[1- incidence-of-tuberculosis-sdgs];
+
+USE [TUBERCULOSIS_REPORT];
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------Creating views---------------------------------
+
+CREATE VIEW CombinedDataView AS
+SELECT [Country], [Code], [Year]
+FROM [dbo].[3- tuberculosis-case-detection-rate]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [dbo].[6- tuberculosis-deaths-under-five-ihme]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [dbo].[4- tuberculosis-treatment-success-rate-by-type]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [dbo].[5- tuberculosis-patients-with-hiv-share]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [dbo].[2- tuberculosis-deaths-by-age]
+
+UNION
+
+SELECT [Country], [Code], [Year]
+FROM [dbo].[1- incidence-of-tuberculosis-sdgs];
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+SQL QUESTION AND ANSWERS
+
+
+
+
+1.--------Total Deaths Over the Years by Every Age -----------------
+SELECT 
+    Year,
+    SUM(
+        Deaths_Tuberculosis_Sex_Both_Age_70_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number
+    ) AS Total_Deaths
+FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age] 
+GROUP BY 
+    Year
+ORDER BY 
+    Year ASC;
+
+2.-------------------------------------------------------------------------------------------------
+
+------------How many Countries were affected---------------------
+
+SELECT COUNT(DISTINCT Country) AS NumberOfCountries
+FROM [TUBERCULOSIS_REPORT].[dbo].[CombinedDataView];
+
+3.--------------------------------------------------------------------------------------------------
+
+------------How many Years were available  ---------------------
+
+SELECT COUNT(DISTINCT Year) AS NumberOfCountries
+FROM [TUBERCULOSIS_REPORT].[dbo].[CombinedDataView];
+
+
+4.---------------------------------------------------------------------------------------------------
+
+------------------Top 5 Countries with the Highest Total Deaths-------------
+SELECT TOP 5
+    Country,
+    SUM(
+        Deaths_Tuberculosis_Sex_Both_Age_70_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number
+    ) AS Total_Deaths
+FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age] 
+GROUP BY 
+    Country
+ORDER BY 
+    Total_Deaths DESC;
+
+5.-------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------Average Deaths by Year and country--------------------------------- 
+
+SELECT
+     year, country,
+    AVG(
+        Deaths_Tuberculosis_Sex_Both_Age_70_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number
+    ) AS Average_Deaths
+FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age] 
+GROUP BY 
+    year, country;
+
+
+
+
+6.------------------------------------------------------------------------------------------------------------------
+
+--------------------Top 5 Years with the Lowest Average Annual Deaths---------------------------
+
+
+SELECT TOP 5
+    Year,
+    AVG(
+        Deaths_Tuberculosis_Sex_Both_Age_70_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number + 
+        Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number
+    ) AS Average_Deaths
+FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age] 
+GROUP BY 
+    Year
+ORDER BY 
+    Average_Deaths;
+
+7.------------------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total Death and Average Death by Age and year---------------------------
+
+SELECT
+    year,
+    SUM(Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number) AS Total_Deaths_Under_5,
+    AVG(Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number) AS Average_Deaths_Under_5,
+    SUM(Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number) AS Total_Deaths_5_14_Years,
+    AVG(Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number) AS Average_Deaths_5_14_Years,
+    SUM(Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number) AS Total_Deaths_15_49_Years,
+    AVG(Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number) AS Average_Deaths_15_49_Years,
+    SUM(Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number) AS Total_Deaths_50_69_Years,
+    AVG(Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number) AS Average_Deaths_50_69_Years,
+    SUM(Deaths_Tuberculosis_Sex_Both_Age_70_years_Number) AS Total_Deaths_70_Years,
+    AVG(Deaths_Tuberculosis_Sex_Both_Age_70_years_Number) AS Average_Deaths_70_Years
+FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age] 
+GROUP BY 
+   year
+   ORDER BY 
+    year asc;
+
+8.-----------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average Treated success rate by XDR_TB by year--------------------------------
+
+SELECT
+    Year,
+    SUM(Indicator_Treatment_success_rate_XDR_TB_cases) AS Total_Success_Rate_XDR_TB,
+    AVG(Indicator_Treatment_success_rate_XDR_TB_cases) AS Average_Success_Rate_XDR_TB
+FROM [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+GROUP BY
+    Year;
+
+9.---------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average Treated success rate by NEW_TB CASES by year--------------------------------
+
+SELECT
+    Year,
+    SUM(Indicator_Treatment_success_rate_new_TB_cases) AS Total_Success_Rate_New_TB,
+    AVG(Indicator_Treatment_success_rate_new_TB_cases) AS Average_Success_Rate_New_TB
+FROM [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+GROUP BY
+    Year;
+
+10.---------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average Treated success rate by MDR_TB by year--------------------------------
+
+SELECT
+    Year,
+    SUM(Indicator_Treatment_success_rate_for_patients_treated_for_MDR_TB) AS Total_Success_Rate_MDR_TB,
+    AVG(Indicator_Treatment_success_rate_for_patients_treated_for_MDR_TB) AS Average_Success_Rate_MDR_TB
+FROM [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+GROUP BY
+    Year;
+
+11.---------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average Estimated HIV in Tuberculosis by year--------------------------------
+
+	SELECT
+    Year,
+    SUM(Estimated_HIV_in_incident_tuberculosis) AS Total_HIV_in_Tuberculosis,
+    AVG(Estimated_HIV_in_incident_tuberculosis) AS Average_HIV_in_Tuberculosis
+FROM [TUBERCULOSIS_REPORT].[dbo].[5- tuberculosis-patients-with-hiv-share]
+GROUP BY
+    Year
+ORDER BY
+    Year;
+
+12.---------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average case detention by year--------------------------------
+
+SELECT
+    Year,
+    SUM(CONVERT(float, Case_detection_rate_all_forms)) AS Total_Case_Detection_Rate,
+    AVG(CONVERT(float, Case_detection_rate_all_forms)) AS Average_Case_Detection_Rate
+FROM [TUBERCULOSIS_REPORT].[dbo].[3- tuberculosis-case-detection-rate]
+GROUP BY
+    Year
+ORDER BY
+    Year;
+
+13.---------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average incident by year--------------------------------
+
+SELECT
+    Year,
+    SUM(Estimated_incidence_of_all_forms_of_tuberculosis) AS Total_Incidence,
+    AVG(Estimated_incidence_of_all_forms_of_tuberculosis) AS Average_Incidence
+FROM dbo.[1- incidence-of-tuberculosis-sdgs]
+GROUP BY
+    Year
+ORDER BY
+    Year;
+
+14.---------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average death by unique country--------------------------------
+
+
+SELECT
+    Country,
+    SUM(Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_70_years_Number) AS Total_Deaths,
+		 AVG(Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_70_years_Number) AS Average_Deaths
+FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age]
+GROUP BY Country;
+
+
+15.---------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average death in Afghanistan--------------------------------
+
+
+SELECT
+    Country,
+    SUM(Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_70_years_Number) AS Total_Deaths
+FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age]
+WHERE Country = 'Afghanistan'
+GROUP BY Country;
+
+16.---------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------Total and average death in Albania--------------------------------
+
+SELECT
+    Country,
+    SUM(Deaths_Tuberculosis_Sex_Both_Age_Under_5_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_5_14_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_15_49_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_50_69_years_Number +
+        Deaths_Tuberculosis_Sex_Both_Age_70_years_Number) AS Total_Deaths
+FROM [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age]
+WHERE Country = 'Albania'
+GROUP BY Country;
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------Adding foreign key to the table to build relationship-------------------------------
+
+
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[1- incidence-of-tuberculosis-sdgs]
+ADD PrimaryKeyColumn INT IDENTITY(1,1);
+
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[1- incidence-of-tuberculosis-sdgs]
+ADD CONSTRAINT PK_IncidenceOfTuberculosisSDGs PRIMARY KEY (PrimaryKeyColumn);
+
+-- Add a new primary key column
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age]
+ADD PrimaryKeyColumn INT IDENTITY(1,1);
+
+-- Add a primary key constraint
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[2- tuberculosis-deaths-by-age]
+ADD CONSTRAINT PK_TuberculosisDeathsByAge PRIMARY KEY (PrimaryKeyColumn);
+
+-- Add a new primary key column
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[3- tuberculosis-case-detection-rate]
+ADD PrimaryKeyColumn INT IDENTITY(1,1);
+
+-- Add a primary key constraint
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[3- tuberculosis-case-detection-rate]
+ADD CONSTRAINT PK_TuberculosisCaseDetectionRate PRIMARY KEY (PrimaryKeyColumn);
+
+-- Add a new primary key column
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+ADD PrimaryKeyColumn INT IDENTITY(1,1);
+
+-- Add a primary key constraint
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[4- tuberculosis-treatment-success-rate-by-type]
+ADD CONSTRAINT PK_TuberculosisTreatmentSuccessRateByType PRIMARY KEY (PrimaryKeyColumn);
+
+-- Add a new primary key column
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[5- tuberculosis-patients-with-hiv-share]
+ADD PrimaryKeyColumn INT IDENTITY(1,1);
+
+-- Add a primary key constraint
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[5- tuberculosis-patients-with-hiv-share]
+ADD CONSTRAINT PK_TuberculosisPatientsWithHIVShare PRIMARY KEY (PrimaryKeyColumn);
+
+-- Add a new primary key column
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[6- tuberculosis-deaths-under-five-ihme]
+ADD PrimaryKeyColumn INT IDENTITY(1,1);
+
+-- Add a primary key constraint
+ALTER TABLE [TUBERCULOSIS_REPORT].[dbo].[6- tuberculosis-deaths-under-five-ihme]
+ADD CONSTRAINT PK_TuberculosisDeathsUnder PRIMARY KEY (PrimaryKeyColumn);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
